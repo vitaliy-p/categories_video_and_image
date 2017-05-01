@@ -105,7 +105,7 @@
     videoDelete.click(function (e) {
         e.preventDefault();
         videoInput.val('');
-        videoInput.next().remove();
+        videoWrap.find('img').remove();
         $(this).addClass('hidden');
     });
     $('.edit-tags-php .submit input').click(function () {
@@ -113,7 +113,7 @@
         delImgLink.addClass('hidden');
         addImgLink.removeClass('hidden');
         videoDelete.addClass('hidden');
-        videoInput.next('img').remove();
+        videoWrap.find('img').remove();
 
     })
 
