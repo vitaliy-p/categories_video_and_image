@@ -1,13 +1,4 @@
 <?php
-//if(isset($tag))
-//$tID = $tag->term_id;
-//$catMeta = get_term_meta($tID);
-//if(isset($catMeta['cat_video']) && $catMeta['cat_video'][0]!= ''){
-//    $video = $catMeta['cat_video'][0];
-//}
-//$imgID = get_term_meta($tID, 'cat_image', true);
-//$imgSrc = wp_get_attachment_image_src($imgID, 'medium');
-//$haveImg = is_array($imgSrc);
 $uploadLink = esc_url(get_upload_iframe_src('image'));
 
 ?>
