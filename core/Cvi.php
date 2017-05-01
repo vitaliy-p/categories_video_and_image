@@ -79,13 +79,12 @@ class Cvi{
 
     }
 
-    function addActionLinks ( $actions, $plugin_file ) {
+    function addActionLinks ( $actions, $pluginFile ) {
         static $plugin;
 
         if (!isset($plugin))
             $plugin = PLUGIN_BASENAME;
-        if ($plugin == $plugin_file) {
-
+        if ($plugin == $pluginFile) {
             $settings = array('settings' => '<a href="'.get_admin_url(null, 'admin.php?page=cvi-settings').'">' . __('Settings', 'General') . '</a>');
             $actions = array_merge($settings, $actions);
         }

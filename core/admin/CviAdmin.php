@@ -31,11 +31,11 @@ class CviAdmin{
     }
 
 
-    function saveCategoryFields( $term_id ) {
-        $cat_image = isset($_POST['cat_image']) ? $_POST['cat_image']:'';
-        $cat_video = (isset($_POST['cat_video']) && filter_var($_POST['cat_video'],FILTER_VALIDATE_URL) != false && $this->getVideoFrame($_POST['cat_video']) !== '') ? $_POST['cat_video']:'';
-        update_term_meta($term_id,'cat_image',$cat_image);
-        update_term_meta($term_id,'cat_video',$cat_video);
+    function saveCategoryFields( $termID ) {
+        $catImage = isset($_POST['cat_image']) ? $_POST['cat_image']:'';
+        $catVideo = (isset($_POST['cat_video']) && filter_var($_POST['cat_video'],FILTER_VALIDATE_URL) != false && $this->getVideoFrame($_POST['cat_video']) !== '') ? $_POST['cat_video']:'';
+        update_term_meta($termID,'cat_image',$catImage);
+        update_term_meta($termID,'cat_video',$catVideo);
 
 
     }
@@ -61,10 +61,12 @@ class CviAdmin{
         check_ajax_referer('cviAdmin');
         $url = filter_var($_POST['url'],FILTER_VALIDATE_URL);
         if ($url != false){
-            $thumb_url = $this->getVideoFrame($url);
-            if($thumb_url != null){
-                wp_send_json($thumb_url);
+            $thumbUrl = $this->getVideoFrame($url);
+
+            if($thumbUrl != null && $thumbUrl != ''){
+                wp_send_json($thumbUrl);
             }
+
             else{
                 return false;
             }
@@ -75,7 +77,7 @@ class CviAdmin{
 
     }
     function getVideoFrame($url){
-        $thumbnail_url = '';
+        $thumbnailUrl = '';
         if(stripos($url,'youtu')!== false){
             preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
 
@@ -83,16 +85,16 @@ class CviAdmin{
             $url = "https://www.googleapis.com/youtube/v3/videos?id={$vID}&key={$this->youtubeKey}&part=snippet,statistics&fields=items(id,snippet,statistics)";
             $output = file_get_contents($url);
             $output = json_decode($output);
-            $thumbnail_url = $output->items[0]->snippet->thumbnails->medium->url;
+            $thumbnailUrl = $output->items[0]->snippet->thumbnails->medium->url;
         }
         if(stripos($url,'vimeo')!== false){
             $vID = (int) substr(parse_url($url, PHP_URL_PATH), 1);
             $output = file_get_contents("https://api.vimeo.com/videos/$vID?access_token={$this->vimeoKey}");
             $output = json_decode($output);
-            $thumbnail_url = $output->pictures->sizes[2]->link;
+            $thumbnailUrl = $output->pictures->sizes[2]->link;
         }
 
-        return $thumbnail_url;
+        return $thumbnailUrl;
     }
 
 }
