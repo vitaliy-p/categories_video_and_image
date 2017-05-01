@@ -91,6 +91,9 @@
                     videoInput.after('<img src="'+data+'">');
                     videoDelete.removeClass('hidden');
                 }
+                else{
+                    videoDelete.addClass('hidden');
+                }
                 videoWrap.find('.spinner').removeClass('is-active');
 
             },
