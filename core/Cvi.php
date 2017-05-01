@@ -39,9 +39,9 @@ class Cvi{
                 $imgUrl = wp_get_attachment_image_src($imgID,'large');
             }
 
-            if(stripos($video,'youtube')!== false){
-                parse_str( parse_url( $video, PHP_URL_QUERY ), $vars );
-                $vID = $vars['v'];
+            if(stripos($video,'youtu')!== false){
+                preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $video, $matches);
+                $vID = $matches[1];
                 $iframe = "<iframe width=\"1000\" height=\"500\" src=\"//www.youtube.com/embed/{$vID}\" frameborder=\"0\" allowfullscreen></iframe>";
             }
             if(stripos($video,'vimeo')!== false){
