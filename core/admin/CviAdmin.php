@@ -33,7 +33,7 @@ class CviAdmin{
 
     function saveCategoryFields( $term_id ) {
         $cat_image = isset($_POST['cat_image']) ? $_POST['cat_image']:'';
-        $cat_video = (isset($_POST['cat_video']) && filter_var($_POST['cat_video'],FILTER_VALIDATE_URL) != false && $this->getVideoFrame($_POST['cat_video']) !== 0) ? $_POST['cat_video']:'';
+        $cat_video = (isset($_POST['cat_video']) && filter_var($_POST['cat_video'],FILTER_VALIDATE_URL) != false && $this->getVideoFrame($_POST['cat_video']) !== '') ? $_POST['cat_video']:'';
         update_term_meta($term_id,'cat_image',$cat_image);
         update_term_meta($term_id,'cat_video',$cat_video);
 
