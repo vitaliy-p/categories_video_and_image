@@ -1,9 +1,10 @@
 <?php
+
 class CviAdmin{
 
     private $version;
-    private $youtubeKey;
-    private $vimeoKey;
+    protected $youtubeKey;
+    protected $vimeoKey;
 
     public function __construct( $version ) {
         $this->version = $version;
@@ -75,9 +76,10 @@ class CviAdmin{
     }
     function getVideoFrame($url){
         $thumbnail_url = '';
-        if(stripos($url,'youtube.com')!== false){
-            parse_str( parse_url( $url, PHP_URL_QUERY ), $vars );
-            $vID = $vars['v'];
+        if(stripos($url,'youtu')!== false){
+            preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
+
+            $vID = $matches[1];
             $url = "https://www.googleapis.com/youtube/v3/videos?id={$vID}&key={$this->youtubeKey}&part=snippet,statistics&fields=items(id,snippet,statistics)";
             $output = file_get_contents($url);
             $output = json_decode($output);

@@ -43,6 +43,7 @@ $haveImg = is_array($imgSrc);
     <td>
        <div id="custom_cat_video">
            <input type="text" name="cat_video" id="cat_video_input" style="margin-bottom: 20px" value="<?php echo isset($video) ? $video:''; ?>">
+           <span class="spinner" style="float: none"></span>
            <?php if(isset($video)){
                echo "<img src='{$this->getVideoFrame($video)}'>";
            } ?>

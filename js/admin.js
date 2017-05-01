@@ -73,7 +73,9 @@
     var videoDelete = videoWrap.find('.delete-custom-video');
     var videoInput = videoWrap.find('input');
     videoInput.focusout(function(){
+        videoWrap.find('.spinner').addClass('is-active');
         var val = $(this).val();
+        videoInput.next('img').remove();
         $.ajax({
             url: ajax.url,
             method: "POST",
@@ -84,12 +86,12 @@
                 url: val,
             },
             success: function(data){
+
                 if(data != 0){
-                    videoInput.next('img').remove();
                     videoInput.after('<img src="'+data+'">');
                     videoDelete.removeClass('hidden');
                 }
-
+                videoWrap.find('.spinner').removeClass('is-active');
 
             },
             error: function (data) {

@@ -20,9 +20,9 @@ class Cvi{
 
     private function loadDependencies() {
 
-        require_once plugin_dir_path( __FILE__  ) . 'admin/CviAdmin.php';
+        require_once PLUGIN_DIR . 'core/admin/CviAdmin.php';
 
-        require_once plugin_dir_path( __FILE__ ) . 'CviLoader.php';
+        require_once PLUGIN_DIR . 'core/CviLoader.php';
         $this->loader = new CviLoader();
         $this->admin = new CviAdmin($this->getVersion());
 
@@ -39,7 +39,7 @@ class Cvi{
                 $imgUrl = wp_get_attachment_image_src($imgID,'large');
             }
 
-            if(stripos($video,'youtube.com')!== false){
+            if(stripos($video,'youtube')!== false){
                 parse_str( parse_url( $video, PHP_URL_QUERY ), $vars );
                 $vID = $vars['v'];
                 $iframe = "<iframe width=\"1000\" height=\"500\" src=\"//www.youtube.com/embed/{$vID}\" frameborder=\"0\" allowfullscreen></iframe>";

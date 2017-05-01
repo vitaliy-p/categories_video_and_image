@@ -16,7 +16,8 @@ if ( ! defined( 'WPINC' ) ) {
 define('PLUGIN_DIR',plugin_dir_path( __FILE__ ));
 define('PLUGIN_DIR_URL',plugin_dir_url( __FILE__ ));
 define('PLUGIN_BASENAME',plugin_basename(__FILE__));
-require_once plugin_dir_path( __FILE__ ) . 'core/Cvi.php';
+
+require_once PLUGIN_DIR . 'core/Cvi.php';
 
 function runCvi() {
 

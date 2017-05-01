@@ -15,7 +15,7 @@ class CviLoader{
         $this->actions = $this->add( $this->actions, $hook, $component, $callback ,$priority,$variables);
     }
 
-    public function addFilter( $hook, $component, $callback ,$priority = 10,$variables = 2) {
+    public function addFilter( $hook, $component, $callback ,$priority = 10, $variables = 2) {
         $this->filters = $this->add( $this->filters, $hook, $component, $callback,$priority,$variables );
     }
 
