@@ -75,7 +75,7 @@
     videoInput.focusout(function(){
 
         var val = $(this).val();
-        videoInput.next('img').remove();
+        videoWrap.find('img').remove();
         videoDelete.addClass('hidden');
         videoWrap.find('.spinner').addClass('is-active');
         $.ajax({
