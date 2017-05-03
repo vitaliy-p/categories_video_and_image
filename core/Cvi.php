@@ -45,7 +45,9 @@ class Cvi{
                 $iframe = "<iframe width=\"1000\" height=\"500\" src=\"//www.youtube.com/embed/{$vID}\" frameborder=\"0\" allowfullscreen></iframe>";
             }
             if(stripos($video,'vimeo')!== false){
-                $vID = substr(parse_url($video, PHP_URL_PATH), 1);
+                $urlRev = strrev($video);
+                $slashPos = strpos($urlRev,'/');
+                $vID = strrev(substr($urlRev,0, $slashPos));
                 $output = file_get_contents("https://api.vimeo.com/videos/$vID?access_token={$this->vimeoKey}");
                 $output = json_decode($output);
                 $iframe = $output->embed->html;

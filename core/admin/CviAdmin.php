@@ -26,6 +26,7 @@ class CviAdmin{
     function addCategoryFields($tag){
         include_once PLUGIN_DIR.'inc/add_category_extra_fields.php';
     }
+
     function extraCategoryFields( $tag ) {    //check for existing featured ID
         include_once PLUGIN_DIR.'inc/edit_category_extra_fields.php';
     }
@@ -80,7 +81,6 @@ class CviAdmin{
         $thumbnailUrl = '';
         if(stripos($url,'youtu')!== false){
             preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
-
             $vID = $matches[1];
             $url = "https://www.googleapis.com/youtube/v3/videos?id={$vID}&key={$this->youtubeKey}&part=snippet,statistics&fields=items(id,snippet,statistics)";
             $output = file_get_contents($url);
@@ -88,7 +88,10 @@ class CviAdmin{
             $thumbnailUrl = $output->items[0]->snippet->thumbnails->medium->url;
         }
         if(stripos($url,'vimeo')!== false){
-            $vID = (int) substr(parse_url($url, PHP_URL_PATH), 1);
+            $urlRev = strrev($url);
+            $slashPos = strpos($urlRev,'/');
+            $vID = strrev(substr($urlRev,0, $slashPos));
+//            $vID = (int) substr(parse_url($url, PHP_URL_PATH), 1);
             $output = file_get_contents("https://api.vimeo.com/videos/$vID?access_token={$this->vimeoKey}");
             $output = json_decode($output);
             $thumbnailUrl = $output->pictures->sizes[2]->link;

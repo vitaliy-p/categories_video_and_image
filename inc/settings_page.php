@@ -11,7 +11,7 @@
             </tr>
 
             <tr valign="top">
-                <th scope="row">Vimeo API Key</th>
+                <th scope="row">Vimeo Access Tokken</th>
                 <td><input type="text" name="vimeo_api_key" style="width: 100%" value="<?php echo esc_attr( get_option('vimeo_api_key') ); ?>" /></td>
             </tr>
 
